@@ -17,9 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
+            $table->boolean('activate')->default(false);
+            $table->boolean('codigoVerificado')->default(false);    
+            $table->text('two_factor_secret')->nullable();
             $table->timestamps();
         });
     }

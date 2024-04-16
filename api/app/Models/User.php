@@ -7,38 +7,56 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'email',
         'password',
+        'activate',
+        'two_factor_secret',
+        'codigoVerificado'
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
+        'two_factor_secret',
+        'two_factor_recovery_codes',
+        'codigoVerificado'
     ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'activate' => 'boolean',
+        'codigoVerificado'=> 'boolean',
     ];
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+    
+    public function twoFactorOptions()
+    {
+        return [
+            'recovery_codes' => true,
+        ];
+    }
+
+    public function generateTwoFactorCode()
+    {
+        $code = '5'.str_pad(rand(0, 999999), 5, '0', STR_PAD_LEFT);
+        $code = substr($code, 0, 6);
+        $this->two_factor_secret = $code;
+        $this->save();
+        return $code;
+    }
 }

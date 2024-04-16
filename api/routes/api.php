@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::group([
+    'prefix' => 'auth'
+], function ($router) {
+    Route::post('/register', [UserController::class, 'register']);
+    Route::post('/verify-two-factor-code', [AuthController::class, 'verifyTwoFactorCode'])->middleware(['activate']);
+    Route::post('/login', [AuthController::class, 'login'])->middleware('activate2');
+});
+Route::get('/activate/{token}', [AuthController::class, 'activate'])->name('activate');
+
+
+Route::group([
+    'middleware' => ['api', 'activate', 'verificado'],
+    'prefix' => 'user'
+], function ($router) {
+
+    Route::get('me', [AuthController::class, 'me']);
 });
