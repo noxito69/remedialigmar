@@ -105,6 +105,7 @@ class GameController extends Controller
         } else {
             $boardState[$x][$y] = 'F';
             $message = 'Solo hay agua en esta posición.';
+            
             $game->turn = ($game->turn == $game->player1_id) ? $game->player2_id : $game->player1_id;
             $game->save();
         }
@@ -174,7 +175,7 @@ class GameController extends Controller
     {
         return $boardState[$x][$y] === 'B';
     }
-    
+
     private function allShipsSunk($boardState)
     {
         foreach ($boardState as $row) {

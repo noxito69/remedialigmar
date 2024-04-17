@@ -7,7 +7,7 @@ import { TwoFAComponent } from './components/two-fa/two-fa.component';
 import { BoardComponent } from './components/board/board.component';
 
 export const routes: Routes = [
-
+    {path:'', redirectTo: 'login', pathMatch: 'full'},
     {path:'index', component:IndexComponent},
     {path:'login', component:LoginComponent},
     {path:'register',component:RegisterComponent},
@@ -15,5 +15,4 @@ export const routes: Routes = [
     {path:'T2A',component:TwoFAComponent},
     {path:'board',component:BoardComponent}
     
-
 ];
