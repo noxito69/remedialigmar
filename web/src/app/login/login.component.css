@@ -1,0 +1,45 @@
+body {
+  height: 100vh; /* Esto asegura que el cuerpo ocupa toda la altura de la vista */
+  margin: 0; /* Esto elimina cualquier margen predeterminado del cuerpo */
+}
+
+.centered-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+  
+label {
+  margin-bottom: 5px;
+}
+  
+input[type="text"], input[type="password"] {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+  
+input[type="submit"] {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+  
+input[type="submit"]:hover {
+  background-color: #45a049;
+}

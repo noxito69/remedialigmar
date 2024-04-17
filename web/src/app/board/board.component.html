@@ -1,0 +1,8 @@
+<div *ngFor="let row of boardState; let i = index">
+  <button *ngFor="let cell of row; let j = index" 
+          (click)="onButtonClick(i, j)" 
+          [ngClass]="{'barco': cell === 'B', 'agua': cell === 'A'}">
+    {{ cell }}
+  </button>
+  <br>
+</div>

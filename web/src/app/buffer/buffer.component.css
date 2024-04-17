@@ -1,0 +1,17 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.waiting-text {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.buffer {
+    width: 100px; /* Aumenta el tamaño del spinner */
+    height: 100px; /* Aumenta el tamaño del spinner */
+}
