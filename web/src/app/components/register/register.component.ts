@@ -17,7 +17,7 @@ export class RegisterComponent {
     username: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
-    passwordConfirm: new FormControl('', Validators.required),
+    password_confirmation: new FormControl('', Validators.required),
   });
 
   get username(){
@@ -29,17 +29,31 @@ export class RegisterComponent {
   get password(){
     return this.registerForm.get('password') as FormControl;
   }
-  get passwordConfirm(){
-    return this.registerForm.get('passwordConfirm') as FormControl;
+  get password_confirmation(){
+    return this.registerForm.get('password_confirmation') as FormControl;
   }
 
-  constructor(private fb: FormBuilder) { }
+  
+  constructor(private fb: FormBuilder, private registerService: RegisterService) { }
 
 
-
-    onSubmit():void {
-      console.warn(this.registerForm.value);
+  onSubmit(): void {
+    if (this.registerForm.valid) {
+      this.registerService.register(this.username.value, this.email.value, this.password.value, this.password_confirmation.value)
+        .subscribe(
+          response => {
+            console.log("Registro exitoso", response);
+            // Aquí podrías redirigir al usuario a una página de inicio de sesión o a otra página de tu aplicación.
+          },
+          error => {
+            console.error("Error en el registro", error);
+            // Aquí podrías manejar el error, por ejemplo, mostrando un mensaje al usuario.
+          }
+        );
+    }
   }
+
+    
 
 
 
