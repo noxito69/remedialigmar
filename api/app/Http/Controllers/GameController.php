@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\movimiento;
 use App\Models\Board;
 use App\Models\Game;
 use App\Models\Move;
@@ -118,6 +119,9 @@ class GameController extends Controller
         $move->y_coordinate = $y;
         $move->save();
 
+        event(new movimiento(['gameId' => $gameId, 'playerId' => auth()->id(), 'x' => $x, 'y' => $y]));
+
+
         if ($this->allShipsSunk($boardState)) {
             $game->status = 'finished';
             $game->save();
@@ -170,6 +174,7 @@ class GameController extends Controller
     {
         return $boardState[$x][$y] === 'B';
     }
+    
     private function allShipsSunk($boardState)
     {
         foreach ($boardState as $row) {
