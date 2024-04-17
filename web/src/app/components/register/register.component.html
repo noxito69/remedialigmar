@@ -13,9 +13,9 @@
         <input type="password" id="password" formControlName="password" required><br>
         <span *ngIf="password.errors?.['required']">Este campo es obligatorio</span>
 
-        <label for="passwordConfirm">Confirmar contraseña:</label><br>
-        <input type="password" id="password_confirmation" formControlName="passwordConfirm" required><br>
-        <span *ngIf="passwordConfirm.errors?.['required']">Este campo es obligatorio</span>
+        <label for="password_confirmation">Confirmar contraseña:</label><br>
+        <input type="password" id="password_confirmation" formControlName="password_confirmation" required><br>
+        <span *ngIf="password_confirmation.errors?.['required']">Este campo es obligatorio</span>
 
         <input type="submit" value="Registrarse" [disabled]="!registerForm.valid">
     </form>
