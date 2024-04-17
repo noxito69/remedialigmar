@@ -1,11 +1,22 @@
 <div class="centered-form">
-    <form (ngSubmit)="onSubmit()">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <label for="username">Nombre de usuario:</label><br>
-        <input type="text" id="username" [(ngModel)]="username" name="username" required><br>
+        <input type="text" id="username" formControlName="username" required><br>
+        <span *ngIf="username.errors?.['required']">Este campo es obligatorio</span>
+
         <label for="email">Email:</label><br>
-        <input type="email" id="email" [(ngModel)]="email" name="email" required><br>
+        <input type="email" id="email" formControlName="email" required><br>
+        <span *ngIf="email.errors?.['required']">Este campo es obligatorio</span>
+        <span *ngIf="email.errors?.['email']">Por favor, introduce un correo electrónico válido</span>
+
         <label for="password">Contraseña:</label><br>
-        <input type="password" id="password" [(ngModel)]="password" name="password" required><br>
-        <input type="submit" value="Registrarse">
+        <input type="password" id="password" formControlName="password" required><br>
+        <span *ngIf="password.errors?.['required']">Este campo es obligatorio</span>
+
+        <label for="passwordConfirm">Confirmar contraseña:</label><br>
+        <input type="password" id="password_confirmation" formControlName="passwordConfirm" required><br>
+        <span *ngIf="passwordConfirm.errors?.['required']">Este campo es obligatorio</span>
+
+        <input type="submit" value="Registrarse" [disabled]="!registerForm.valid">
     </form>
-</div> 
+</div>
