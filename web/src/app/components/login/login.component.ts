@@ -43,6 +43,7 @@ export class LoginComponent {
         console.log(response)
         this.LoginReturn.msg = response.msg
         this.LoginReturn.token = response.token
+        localStorage.setItem('token', response.token)
         setTimeout(()=>{
           this.router.navigate(['/T2A'])
         })

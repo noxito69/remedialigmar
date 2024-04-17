@@ -7,24 +7,26 @@
 </head>
 <body>
 
-    <div class="super-contenedor">
+    <div class="super-contenedor" [ngClass]="{ 'loading': isLoading }">
         <div class="llama"></div>
 
-        <div class="contenedor">
+        <div class="contenedor" [class.disabled]="isLoading">
             <h1>Verifica tu identidad</h1>
             <div class="text">
                 <h4>Se ha enviado un código de 6 dígitos a tu correo</h4>
                 <h4>Introdúcelo para verificar que eres tú</h4>
             </div>
-            <form>
-                <input type="text" placeholder="Ingrese el código: ######" name="codigo" id="codigo" class="form-control" >
-            
-                <button type="submit" class="btn" >Verificar</button>
+            <form (submit)="onSubmit(codigo.value)">
+                <input type="text" placeholder="Ingrese el código: ######" name="codigo" id="codigo" class="form-control" #codigo [disabled]="isLoading">
+                <div class="alert alert-warning mt-2" *ngIf="message" style="width: 50%; margin: auto;">
+                    {{ message }}
+                </div>
+                <button type="submit" class="btn" [disabled]="isLoading">Verificar</button>
             </form>
         </div>
 
-
-   
+        <!-- Spinner de carga 
+        <app-loading-spinner *ngIf="isLoading" class="loading-spinner"></app-loading-spinner>--->
     </div>
 
 </body>
