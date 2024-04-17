@@ -25,7 +25,6 @@ class AuthController extends Controller
         }
 
         $user = auth()->user();
-        $token = JWTAuth::fromUser($user);
         if (!$user) {
             return response()->json(["msg" => "Usuario no encontrado"], 404);
         }
@@ -37,11 +36,10 @@ class AuthController extends Controller
             return response()->json(['msg' => 'Redireccionando a la autenticación de dos factores', "token" => $token], 200);
         }
         $this->sendTwoFactorCodeByEmail($user);
-        return response()->json(['msg' => 'Inicio de sesión correcto', 'data' => $user, 'token' => $token], 200);
-    }
+        return response()->json(['msg' => 'Inicio de sesión correcto', 'data' => $user, 'token' => $token], 200);    }
 
     public function me(Request $request)
-    {
+    {   
         return response()->json(auth()->user());
     }
 

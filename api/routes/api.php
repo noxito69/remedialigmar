@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BoardController;
+use App\Http\Controllers\GameController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +33,16 @@ Route::group([
     'middleware' => ['api', 'activate', 'verificado'],
     'prefix' => 'user'
 ], function ($router) {
-
     Route::get('me', [AuthController::class, 'me']);
+});
+
+Route::group([
+//    'middleware' => ['api', 'activate', 'verificado'],
+    'prefix' => 'game'
+], function ($router) {
+    Route::get('hit/{idgame}', [GameController::class, 'makeMove']);
+    Route::post('play', [GameController::class, 'createGame']);
+    Route::get('show/{game}', [BoardController::class, 'show']);
+
+    Route::get('historial', [GameController::class, 'HistorialJuegos']);
 });
