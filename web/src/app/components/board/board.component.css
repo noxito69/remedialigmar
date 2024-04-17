@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('../../assets/oceano.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: auto;
+  height: auto;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td {
+  width: 90px;
+  height: 80px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.label {
+  color: #ffffff; /* Cambia esto al color que desees */
+  
+}
+
+button {
+  width: 100%;
+  height: 100%;
+}
+
+.barco {
+  background-color: rgb(0, 243, 32);
+}
+
+.agua {
+  background-color: rgb(43, 145, 255);
+}

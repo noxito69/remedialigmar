@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { IndexComponent } from './index/index.component';
-import { BufferComponent } from './buffer/buffer.component';
-import { TwoFAComponent } from './two-fa/two-fa.component';
-import { BoardComponent } from './board/board.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { IndexComponent } from './components/index/index.component';
+import { BufferComponent } from './components/buffer/buffer.component';
+import { TwoFAComponent } from './components/two-fa/two-fa.component';
+import { BoardComponent } from './components/board/board.component';
 
 export const routes: Routes = [
 

@@ -1,0 +1,19 @@
+<body>
+  <div class="container">
+    <table>
+      <tr>
+        <td></td> <!-- Espacio vacío en la esquina superior izquierda -->
+        <td class="label" *ngFor="let letter of letters">{{ letter }}</td>
+      </tr>
+      <tr *ngFor="let row of boardState; let i = index">
+        <td class="label">{{ numbers[i] }}</td>
+        <td *ngFor="let cell of row; let j = index">
+          <button (click)="onButtonClick(i, j)" 
+                  [ngClass]="{'barco': cell === 'B', 'agua': cell === 'A'}">
+            {{ cell }}
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</body>

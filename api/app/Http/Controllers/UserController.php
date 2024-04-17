@@ -6,6 +6,7 @@ use App\Mail\ValidatorMail;
 use App\Models\User;
 use Hash;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 use Mail;
@@ -42,7 +43,7 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password')),
+            'password' =>Hash::make($request->input('password')),
         ]);
 
         $token = JWTAuth::fromUser($user);
