@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\GameFinished;
 use App\Events\movimiento;
+use App\Events\PlayerJoinedGame;
 use App\Models\Board;
 use App\Models\Game;
 use App\Models\Move;
@@ -37,6 +39,8 @@ class GameController extends Controller
             $pendingGame->turn = $pendingGame->player2_id;
             $pendingGame->save();
 
+            event(new PlayerJoinedGame($pendingGame->id, auth()->id()));
+            
             $board = new Board();
             $board->game_id = $pendingGame->id;
             $board->player_id = auth()->id();
@@ -105,7 +109,7 @@ class GameController extends Controller
         } else {
             $boardState[$x][$y] = 'F';
             $message = 'Solo hay agua en esta posición.';
-            
+
             $game->turn = ($game->turn == $game->player1_id) ? $game->player2_id : $game->player1_id;
             $game->save();
         }
@@ -130,6 +134,8 @@ class GameController extends Controller
             $winner = $game->turn;
             $loser = ($winner == $game->player1_id) ? $game->player2_id : $game->player1_id;
 
+            event(new GameFinished($game->id, $winner));
+            
             if ($winner == auth()->id()) {
                 $winMessage = '¡Felicidades! Has hundido todos los barcos del oponente. ¡Has ganado!';
                 $loseMessage = '¡El oponente ha hundido todos tus barcos! ¡Has perdido!';
