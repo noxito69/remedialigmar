@@ -138,6 +138,8 @@ class GameController extends Controller
             $winner = $game->turn;
             $loser = ($winner == $game->player1_id) ? $game->player2_id : $game->player1_id;
 
+            event(new GameFinished($game->id, $winner));
+
             if ($winner == auth()->id()) {
                 $winMessage = '¡Felicidades! Has hundido todos los barcos del oponente. ¡Has ganado!';
                 $loseMessage = '¡El oponente ha hundido todos tus barcos! ¡Has perdido!';

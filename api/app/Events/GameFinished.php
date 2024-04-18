@@ -43,6 +43,6 @@ class GameFinished implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('game.' . $this->gameId);
+        return new Channel('FinishGame');
     }
 }

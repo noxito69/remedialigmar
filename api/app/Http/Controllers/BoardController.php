@@ -13,7 +13,7 @@ class BoardController extends Controller
     {
         $game = Game::findOrFail($gameId);
 
-        if ($game->status === 'ongoing') {
+        if ($game->status === 'ongoing' || $game->status === 'finished') {
             if ($game->player1_id === Auth ::id() || $game->player2_id === Auth::id()) {
                 $board = Board::where('player_id', Auth::id())->where('game_id', $gameId)->first();
                 return response()->json(['board' => $board]);

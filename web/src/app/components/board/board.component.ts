@@ -47,6 +47,7 @@ export class BoardComponent implements OnInit{
 
   ngOnInit(): void {
     this.websocket()
+    this.websocket2()
     const gameId = localStorage.getItem('gameId'); // Obtener el ID del juego del localStorage
     if (gameId) {
       this.gameService.consumirBoard(parseInt(gameId, 10)).subscribe(
@@ -109,8 +110,25 @@ export class BoardComponent implements OnInit{
   }
   websocket() {
     this.echo.channel('Movimiento').listen('movimiento', (data: any) => {
-      // Una vez que se recibe el evento de movimiento, se vuelve a cargar el tablero
+      if(data.message == '¡Felicidades! Has hundido todos los barcos del oponente. ¡Has ganado!')
+      {
+        
+      }
       this.reloadBoard();
+      console.log(data);
+    });
+    console.log(this.echo);
+    this.echo.connect();
+  }
+  websocket2() {
+    this.echo.channel('FinishGame').listen('GameFinished', (data: any) => {
+      Swal.fire({
+        title: 'El juegoFinalizo',
+        text: 'Ganador\n'+data.winnerId,
+        icon: 'error',
+        confirmButtonText: 'Ok'
+      });
+      this.router.navigate(['/index']);
       console.log(data);
     });
     console.log(this.echo);
