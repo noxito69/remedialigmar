@@ -12,6 +12,8 @@
 }
 
 .buffer {
-    width: 100px; /* Aumenta el tamaño del spinner */
-    height: 100px; /* Aumenta el tamaño del spinner */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
 }
