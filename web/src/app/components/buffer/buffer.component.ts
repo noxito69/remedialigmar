@@ -11,11 +11,13 @@ import Pusher from 'pusher-js';
   styleUrl: './buffer.component.css',
 })
 export class BufferComponent {
-  constructor(private router: Router) { }
-  private echo: Echo;
-  ngOnInit(): void {
-  }
-  websocket()   {
+  private echo!: Echo;
+
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {}
+
+  websocket() {
     this.echo = new Echo({
       broadcaster: 'pusher',
       key: '123',
@@ -25,9 +27,10 @@ export class BufferComponent {
       forceTLS: false,
       disableStatus: true,
     });
-    
-    this.echo.channel('Joingame').listen('ChatEvent', (e:any) => {
-      this.router.navigate(['/tablero', data.gameId]);
-    })
+
+    this.echo.private('private-Joingame').listen('PlayerJoinedGame', (data) => {
+      console.log('El jugador ' + data.playerId + ' se ha unido al juego ' + data.gameId);
+      this.router.navigate(['/tablero']);
+    });
   }
 }
