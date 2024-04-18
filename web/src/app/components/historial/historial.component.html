@@ -14,26 +14,25 @@
     <div class="container contenedor" style="width: 80vh;">
 
         <button class="btn btn-danger btn-lg mb-3">Volver</button>
-    
         <table class="table transparent-table">
-            <thead>
-                <tr>
-                    <th scope="col">Jugador 1</th>
-                    <th scope="col">Jugador 2</th>
-                    <th scope="col">Turnos</th>
-                    <th scope="col">Ganador</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Aquí puedes agregar las filas de la tabla -->
-                <tr>
-                    <td>Jugador 1</td>
-                    <td>Jugador 2</td>
-                    <td>10</td>
-                    <td>Jugador 1</td>
-                </tr>
-            </tbody>
-        </table>
+          <thead>
+              <tr>
+                  <th scope="col">Jugador 1</th>
+                  <th scope="col">Jugador 2</th>
+                  <th scope="col">Turnos</th>
+                  <th scope="col">Ganador</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let partida of partidas">
+                  <td>{{partida.player1_id}}</td>
+                  <td>{{partida.player2_id}}</td>
+                  <td>{{partida.turn}}</td>
+                  <td>{{partida.turn === 1 ? 'Jugador 1' : 'Jugador 2'}}</td>
+              </tr>
+          </tbody>
+      </table>
+        
       
       </div>
     </div>
