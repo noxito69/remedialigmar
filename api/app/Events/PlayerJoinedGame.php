@@ -44,6 +44,6 @@ class PlayerJoinedGame implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('Joingame');
+        return new Channel('Joingame');
     }
 }
