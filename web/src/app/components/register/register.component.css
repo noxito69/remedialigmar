@@ -1,45 +1,25 @@
-body {
-  height: 100vh; /* Esto asegura que el cuerpo ocupa toda la altura de la vista */
-  margin: 0; /* Esto elimina cualquier margen predeterminado del cuerpo */
-}
-
-.centered-form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  width: 300px;
+.contenedor {
+  width: 50%;
+  background-color: rgba(255, 255, 255, 1); /* Color de fondo con canal alfa para transparencia */
+  opacity: 1; 
+  height: 60%;
   margin: auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0px 2px 0 0 rgba(0, 0, 0, 0.2);
 }
-  
-label {
-  margin-bottom: 5px;
+body{
+  background-image: url('../../../assets/oceano.jpg');
+  background-size: cover; /* La imagen cubrirá todo el cuerpo */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  background-position: center; /* Centra la imagen en el cuerpo */
+
 }
-  
-input[type="text"], input[type="password"], input[type="email"] {
-  margin-bottom: 15px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.btn{
+  width: 100%;
 }
-  
-input[type="submit"] {
-  padding: 10px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-  
-input[type="submit"]:hover {
-  background-color: #45a049;
+
+.disabled-input {
+  pointer-events: none; /* Desactiva los eventos de puntero */
+  opacity: 0.5; /* Reduce la opacidad para indicar que está desactivado */
 }
