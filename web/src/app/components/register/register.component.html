@@ -1,22 +1,62 @@
-<div class="centered-form">
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        <label for="username">Nombre de usuario:</label><br>
-        <input type="text" id="username" formControlName="username" required><br>
-        <span *ngIf="username.errors?.['required']">Este campo es obligatorio</span>
+<!DOCTYPE html>
+<html lang="en">
 
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" formControlName="email" required><br>
-        <span *ngIf="email.errors?.['required']">Este campo es obligatorio</span>
-        <span *ngIf="email.errors?.['email']">Por favor, introduce un correo electrónico válido</span>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro</title>
 
-        <label for="password">Contraseña:</label><br>
-        <input type="password" id="password" formControlName="password" required><br>
-        <span *ngIf="password.errors?.['required']">Este campo es obligatorio</span>
+</head>
 
-        <label for="password_confirmation">Confirmar contraseña:</label><br>
-        <input type="password" id="password_confirmation" formControlName="password_confirmation" required><br>
-        <span *ngIf="password_confirmation.errors?.['required']">Este campo es obligatorio</span>
+<body>
 
-        <input type="submit" value="Registrarse" [disabled]="!registerForm.valid">
-    </form>
-</div>
+  <div class="container-fluid d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <!-- Container para centrar verticalmente y horizontalmente el contenido -->
+    <div class="container contenedor">
+      <!-- Container para el contenido del formulario -->
+      <h1 class="text-center mb-4">Registro</h1>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="username" class="form-label">Nombre de usuario:</label>
+          <input type="text" class="form-control" formControlName="username" id="username" required
+            placeholder="Ingresa tu nombre de usuario">
+          <div [hidden]="username.valid || username.pristine">
+            <span class="text-danger" *ngIf="username.errors?.['required']">Este campo es obligatorio</span>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email:</label>
+          <input type="email" class="form-control" formControlName="email" id="email" required
+            placeholder="Ingresa tu email">
+          <div [hidden]="email.valid || email.pristine">
+            <span class="text-danger" *ngIf="email.errors?.['required']">Este campo es obligatorio</span>
+            <span class="text-danger" *ngIf="email.errors?.['email']">Por favor, introduce un correo electrónico válido</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="password" class="form-label">Contraseña:</label>
+            <input type="password" class="form-control" formControlName="password" id="password" required
+              placeholder="Ingresa tu contraseña">
+            <div [hidden]="password.valid || password.pristine">
+              <span class="text-danger" *ngIf="password.errors?.['required']">Este campo es obligatorio</span>
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="password_confirmation" class="form-label">Confirmar contraseña:</label>
+            <input type="password" class="form-control" formControlName="password_confirmation" id="password_confirmation"
+              required placeholder="Confirma tu contraseña">
+            <div [hidden]="password_confirmation.valid || password_confirmation.pristine">
+              <span class="text-danger" *ngIf="password_confirmation.errors?.['required']">Este campo es obligatorio</span>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block mt-3" [disabled]="!registerForm.valid">Registrarse</button>
+        <p class="text-center mt-3">Ya tienes una cuenta? <a routerLink="/login">Iniciar Sesión</a></p>
+      </form>
+    </div>
+  </div>
+
+</body>
+
+</html>

@@ -9,7 +9,7 @@ export class LogoutService {
   constructor(private http: HttpClient) { }
 
   logout() {
-    return this.http.get('ruta-a-tu-api/logout');
+    return this.http.get('');
   }
 }
 
