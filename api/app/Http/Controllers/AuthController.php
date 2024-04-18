@@ -102,7 +102,7 @@ class AuthController extends Controller
             'two_factor_code' => 'required|digits:6',
         ]);
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 422);
+            return response()->json(['error' => 'minimo 6 caracteres'], 422);
         }
         $user = auth()->user();
         if ($user->two_factor_secret == $request->two_factor_code) {

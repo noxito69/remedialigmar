@@ -22,5 +22,8 @@ export class LoginService {
   consumirTwoFactor(two_factor_code: Number): Observable<any>{
     return this.http.post<UserData>(this.verificarCodigo, {two_factor_code: two_factor_code})
   }
-  
+  VerificarAutenticacion(): Observable<any> {
+    let url = `${api}/user/me`
+    return this.http.get<any>(url)
+  }
 }

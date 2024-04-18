@@ -41,7 +41,6 @@ body {
     margin: auto;
 }
 .btn{
-    background-image: linear-gradient(to right, #e5f0b8, #ddb1ff, #e25bff);
     width: 50%;
     margin-top: 10px;
     margin-left:  25%;
@@ -70,4 +69,9 @@ h1{
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 9999; /* Asegúrate de que esté por encima de todos los demás elementos */
+}
+
+.disabled-input {
+    pointer-events: none; /* Desactiva los eventos de puntero */
+    opacity: 0.5; /* Reduce la opacidad para indicar que está desactivado */
 }

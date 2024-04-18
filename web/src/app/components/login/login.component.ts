@@ -5,16 +5,23 @@ import { FormGroup } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
 import { User } from '../../interfaces/user';
 import { LoginReturn } from '../../interfaces/login-return';
-import { Route, Router } from '@angular/router';
+import { Route, Router, RouterModule } from '@angular/router';
+import { SpinnerComponent } from '../spinner/spinner.component';
+import Swal from 'sweetalert2'
+
+-SpinnerComponent
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, FormsModule, CommonModule],
+  imports: [FormsModule, ReactiveFormsModule, FormsModule, CommonModule,RouterModule, SpinnerComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
   constructor (private LS: LoginService, private router:Router){}
+  public errorMessage: string|null = null;
+  public isLoading: boolean = false;
+
   public form = new FormGroup({
     email : new FormControl('', [Validators.email, Validators.required]),
     password : new FormControl('', [Validators.required, Validators.minLength(8)])
@@ -36,6 +43,7 @@ export class LoginComponent {
   }
 
   onSubmit() {
+    this.isLoading = true;
     this.User.email = this.email.value;
     this.User.password = this.password.value;
     this.LS.consumirLogin(this.User).subscribe(
@@ -47,8 +55,17 @@ export class LoginComponent {
         setTimeout(()=>{
           this.router.navigate(['/T2A'])
         })
+        this.isLoading = false;
       }, (error)=>{
+        this.errorMessage = error.error || error.error;
         console.log(error)
+        Swal.fire({
+          title: 'Error!',
+          text: this.errorMessage||"",
+          icon: 'error',
+          confirmButtonText: 'Ok'
+        });
+        this.isLoading = false;
       }
     )
   }

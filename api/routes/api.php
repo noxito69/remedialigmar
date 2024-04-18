@@ -30,14 +30,14 @@ Route::get('/activate/{token}', [AuthController::class, 'activate'])->name('acti
 
 
 Route::group([
-    //middleware' => ['api', 'activate', 'verificado'],
+    'middleware' => ['api', 'activate', 'verificado'],
     'prefix' => 'user'
 ], function ($router) {
     Route::get('me', [AuthController::class, 'me']);
 });
 
 Route::group([
-//    'middleware' => ['api', 'activate', 'verificado'],
+    'middleware' => ['api', 'activate', 'verificado'],
     'prefix' => 'game'
 ], function ($router) {
     Route::get('hit/{idgame}', [GameController::class, 'makeMove']);

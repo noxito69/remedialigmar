@@ -1,3 +1,25 @@
-.container{
-  height: 100vh;
+.contenedor {
+    width: 50%;
+    background-color: rgba(255, 255, 255, 1); /* Color de fondo con canal alfa para transparencia */
+    opacity: 1; 
+    height: 50%;
+    margin: auto;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0px 2px 0 0 rgba(0, 0, 0, 0.2);
+}
+body{
+    background-image: url('../../../assets/oceano.jpg');
+    background-size: cover; /* La imagen cubrirá todo el cuerpo */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: center; /* Centra la imagen en el cuerpo */
+
+}
+.btn{
+    width: 100%;
+}
+
+.disabled-input {
+    pointer-events: none; /* Desactiva los eventos de puntero */
+    opacity: 0.5; /* Reduce la opacidad para indicar que está desactivado */
 }

@@ -9,31 +9,52 @@
 
 <body>
 
-  <div class="container">
-    <h1 style="width: 50%; margin: auto; text-align: center;">BIENVENIDO</h1>
-    <form (ngSubmit)="onSubmit()" [formGroup]="form">
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Email</label>
-        <input type="email" class="form-control" formControlName="email" id="email" required name="email" placeholder="Ingresa tu email">
-        <div [hidden]="email.valid || email.pristine">
-          <span class="text-danger" *ngIf="email.errors?.['required']">
-            Ingresa el correo
-          </span>
-          <span class="text-danger" *ngIf="email.errors?.['email']">
-            El formato del correo es incorrecto
-          </span>
+  <div class="container-fluid d-flex justify-content-center align-items-center" style="height: 100vh; width: 100vh;">
+    <!-- Container para centrar verticalmente y horizontalmente el contenido -->
+    <div class="container contenedor" style="width: 80vh;">
+      <app-spinner *ngIf="isLoading"></app-spinner>
+
+      <!-- Container para el contenido del formulario -->
+      <h1 class="text-center mb-4">Iniciar Sesion</h1>
+      <form (ngSubmit)="onSubmit()" [formGroup]="form">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Email</label>
+          <input type="email" class="form-control" formControlName="email" id="email" required name="email"
+            placeholder="Ingresa tu email" [ngClass]="{'disabled-input': isLoading}">
+          <div [hidden]="email.valid || email.pristine">
+            <span class="text-danger" *ngIf="email.errors?.['required']">
+              Ingresa el correo
+            </span>
+            <span class="text-danger" *ngIf="email.errors?.['email']">
+              El formato del correo es incorrecto
+            </span>
+          </div>
         </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input type="password" class="form-control" formControlName="password" id="password" required name="password"
+            placeholder="Ingresa tu contraseña" [ngClass]="{'disabled-input': isLoading}">
+          <div [hidden]="password.valid||password.pristine">
+            <span class="text-danger" *ngIf="password.errors?.['required']">
+              Ingresa la contraseña
+            </span>
+            <span class="text-danger" *ngIf="password.errors?.['minlength']">
+              Contraseña muy corta minimo 8 caracteres
+            </span>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block mt-3" [ngClass]="{'disabled-input': isLoading}"
+          [disabled]="isLoading">Iniciar Sesión</button>
+        <p class="text-center mt-3">No tienes cuenta? <a routerLink="/register">Regístrate</a></p>
+      </form>
+      <div class="alert alert-success fade show mt-3" *ngIf="LoginReturn.msg != ''">
+        {{LoginReturn.msg}}
       </div>
-      <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" class="form-control" formControlName ="password" id="password" required name="password" placeholder="Ingresa tu contraseña">
-      </div>
-      <button type="submit" class="btn btn-primary">Iniciar Sesion</button>
-    </form>
-    <div class="alert alert-success fade show" *ngIf="LoginReturn.msg != ''">
-      {{LoginReturn.msg}}
     </div>
   </div>
 
+
+
 </body>
+
 </html>

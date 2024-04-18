@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-
+    <app-spinner *ngIf="isLoading"></app-spinner>
     <div class="super-contenedor" [ngClass]="{ 'loading': isLoading }">
         <div class="llama"></div>
 
@@ -21,7 +21,7 @@
                 <div class="alert alert-warning mt-2" *ngIf="message" style="width: 50%; margin: auto;">
                     {{ message }}
                 </div>
-                <button type="submit" class="btn" [disabled]="isLoading">Verificar</button>
+                <button type="submit" class="btn btn-primary" [disabled]="isLoading">Verificar</button>
             </form>
         </div>
 

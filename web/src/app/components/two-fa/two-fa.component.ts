@@ -4,18 +4,21 @@ import { Route, Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { CommonModule } from '@angular/common';
 import { UserData } from '../../interfaces/user-data';
+import { SpinnerComponent } from '../spinner/spinner.component';
+import Swal from 'sweetalert2'
+
 
 @Component({
   selector: 'app-two-fa',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, FormsModule, CommonModule],
+  imports: [FormsModule, ReactiveFormsModule, FormsModule, CommonModule, SpinnerComponent],
   templateUrl: './two-fa.component.html',
   styleUrl: './two-fa.component.css'
 })
 export class TwoFAComponent {
   constructor (private router : Router, private LS:LoginService){
   }
-  
+  public errorMessage: string|null = null
   public message: string|null = null
   codigo: Number = 0
   public user: UserData = {
@@ -50,16 +53,14 @@ export class TwoFAComponent {
 
         },
         (error) => {
+          this.errorMessage = error.error || error.error;
           console.log(error.error.two_factor_code)
-          
-          this.message = error.error
-          if(error.message == "Unauthenticated."){
-            this.message = "Usuario no autenticado"
-            
-          } 
-          if(error.error.two_factor_code){
-            this.message = "El codigo de autenticación debe ser ingresado"
-          }
+          Swal.fire({
+            title: 'Error!',
+            text: this.errorMessage||"",
+            icon: 'error',
+            confirmButtonText: 'Ok'
+          });
           this.isLoading = false;  
         }
     );}
