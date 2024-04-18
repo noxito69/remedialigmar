@@ -1,27 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centrar botones e imagen</title>
     <style>
-        .logout-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: red;
-            color: white;
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0; /* Cambia el color de fondo según tus preferencias */
+        }
+        .container {
+            text-align: center;
+            margin-top: 600px;
+        }
+        .button-container {
+            margin-top: 20px; /* Espacio entre la imagen y los botones */
+        }
+        .button {
+            display: block;
+            width: 150px; /* Ancho de los botones */
+            padding: 10px;
+            margin-bottom: 10px; /* Espacio entre los botones */
             border: none;
-            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
             cursor: pointer;
+        }
+        .green {
+            background-color: #4caf50; /* Color de fondo del botón verde */
+            color: white;
+        }
+        .blue {
+            background-color: #2196f3; /* Color de fondo del botón azul */
+            color: white;
+        }
+        .red {
+            background-color: #f44336; /* Color de fondo del botón rojo */
+            color: white;
+        }
+        .image-label {
+            background-color: white;
+            width: 25%;
+            height: 35px;
+            margin-top: 5px; /* Espacio entre la imagen y el label */
+            font-size: 20px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <div class="center">
-        <img src="assets/soldadin.png" alt="Imagen descriptiva" style="width: 13;">
+    <div class="container center">
+        <img src="assets/soldadin.png" alt="Imagen descriptiva" style="width: 150px;">
+        <div class="image-label">{{usuario}}</div>
         <div class="button-container">
-            <button class="button green" (click)="jugar()" >Jugar</button>
+            <button class="button green" (click)="jugar()">Jugar</button>
             <button class="button blue" routerLink="../historial">Partidas</button>
+            <button class="button red" (click)="logout()">Cerrar sesión</button>
         </div>
+        
     </div>
-    
 </body>
 </html>

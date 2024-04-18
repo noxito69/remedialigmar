@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class turn
+class turn implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -19,9 +19,12 @@ class turn
      *
      * @return void
      */
-    public function __construct()
+    public $turno;
+    public $username;
+    public function __construct($turno)
     {
-        //
+        $this->turno = $turno;
+       // $this->username = $username
     }
 
     /**
@@ -31,6 +34,6 @@ class turn
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+        return new Channel('turno');
     }
 }

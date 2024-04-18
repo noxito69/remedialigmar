@@ -67,6 +67,10 @@ img {
     background-color: blue;
     color: white;
 }
+.red {
+    background-color: red;
+    color: white;
+}
 
 .button-container {
     display: flex;

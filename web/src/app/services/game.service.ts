@@ -12,6 +12,7 @@ export class GameService {
   private playUrl = `${api}/game/play`
   private moveUrl = `${api}/game/hit/`
   private boardUrl = `${api}/game/show/`
+  private boarOponentdUrl = `${api}/game/showOponent/`
 
   // Método para consumir la API de creación de juego
   consumirplay() {
@@ -27,6 +28,10 @@ export class GameService {
   // Método para consumir la API de mostrar tablero
   consumirBoard(gameId: number) {
     const url = `${this.boardUrl}${gameId}`;
+    return this.http.get<any>(url);
+  }
+  consumirBoardOponent(gameId: number) {
+    const url = `${this.boarOponentdUrl}${gameId}`;
     return this.http.get<any>(url);
   }
 

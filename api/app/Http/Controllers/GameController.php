@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\GameFinished;
 use App\Events\movimiento;
 use App\Events\PlayerJoinedGame;
+use App\Events\turn;
 use App\Models\Board;
 use App\Models\Game;
 use App\Models\Move;
@@ -40,6 +41,8 @@ class GameController extends Controller
             $pendingGame->save();
 
             event(new PlayerJoinedGame($pendingGame->id, auth()->id()));
+            event(new turn($pendingGame->turn));
+
             
             $board = new Board();
             $board->game_id = $pendingGame->id;
@@ -116,6 +119,7 @@ class GameController extends Controller
 
             $game->turn = ($game->turn == $game->player1_id) ? $game->player2_id : $game->player1_id;
             $game->save();
+            event(new turn($game->turn));
         }
 
         $opponentBoard->board_state = json_encode($boardState);
@@ -166,7 +170,7 @@ class GameController extends Controller
                 $boardState[$i][$j] = 'A';
             }
         }
-        $numShips = 2;
+        $numShips = 15;
         for ($s = 0; $s < $numShips; $s++) {
             $x = rand(0, $rows - 1);
             $y = rand(0, $cols - 1);

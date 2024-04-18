@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { GameService } from '../../services/game.service';
 import { Gameplay } from '../../interfaces/gameplay';
 import { LoginService } from '../../services/login.service';
 import { Injectable } from '@angular/core';
+import { LogoutService } from '../../services/logout.service';
 
 @Component({
   selector: 'app-index',
@@ -13,11 +14,14 @@ import { Injectable } from '@angular/core';
   templateUrl: './index.component.html',
   styleUrl: './index.component.css',
 })
-export class IndexComponent {
+export class IndexComponent implements OnInit{
   constructor(
     private gameService: GameService,
+    private LogouteServeice:LogoutService,
+    private LoginService:LoginService,
     private router: Router,
   ) {}
+  public usuario = ''
   public partida: Gameplay = {
     message: '',
     game_id: {
@@ -28,7 +32,9 @@ export class IndexComponent {
       status: '',
     },
   };
-
+  ngOnInit(): void {
+    this.infoUsuario()
+  }
   jugar() {
     this.gameService.consumirplay().subscribe(
       (response) => {
@@ -49,4 +55,23 @@ export class IndexComponent {
       }
     );
   }
+  logout(){
+    this.LogouteServeice.consumirlogout().subscribe(
+      (response)=>{
+        this.router.navigate(['/login']);
+        console.log(response.message)
+      }, (error)=>{
+        console.log(error.error)
+      })
+  }
+  infoUsuario(){
+    this.LoginService.VerificarAutenticacion().subscribe(
+      (response)=>{
+        this.usuario = response.name
+        console.log(response.name)
+      }, (error)=>{
+        console.log(error.error)
+      })
+  }
+  
 }

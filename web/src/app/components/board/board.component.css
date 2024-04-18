@@ -37,21 +37,26 @@ button {
   height: 100%;
 }
 
+.rojo {
+  background-image: url('../../../assets/barco1.jpg');
+  background-size: cover;
+    background-position: center;
+}
 .barco {
-  background-color: green;
+  background-image: url('../../../assets/barco.png');
+    background-size: cover;
+    background-position: center;
 }
 
 .agua {
   background-color: rgb(43, 145, 255);
 }
-
+.barco2 {
+  background-color: rgb(43, 145, 255);
+}
 .gris {
   background-color: grey;
   color: white;
 }
 
 /* Clase para botones de color rojo */
-.rojo {
-  background-color: red;
-  color: white;
-}

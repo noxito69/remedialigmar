@@ -34,7 +34,7 @@ Route::group([
     'prefix' => 'user'
 ], function ($router) {
     Route::get('me', [AuthController::class, 'me']);
-    Route::get('logout', [AuthController::class, 'logout']);
+    Route::post('logout', [AuthController::class, 'logout']);
 });
 
 Route::group([
@@ -44,6 +44,8 @@ Route::group([
     Route::post('hit/{idgame}', [GameController::class, 'makeMove']);
     Route::post('play', [GameController::class, 'createGame']);
     Route::get('show/{game}', [BoardController::class, 'show']);
+    Route::get('showOponent/{game}', [BoardController::class, 'showOpponentBoard']);
+
 
     Route::get('historial', [GameController::class, 'HistorialJuegos']);
 });

@@ -22,7 +22,9 @@ import Pusher from 'pusher-js';
 export class BoardComponent implements OnInit{
   constructor(private gameService: GameService, private router: Router, private gameIdService: GameIdService) { }
   boardState: string[][] = [[]];
-  
+  boardStateOponent: string[][] = [[]];
+  cellStates: boolean[][] = [[]];
+  turno : number = 0;
   numbers: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
   letters: string[] = ['A', 'B', 'C', 'D', 'E'];
 
@@ -46,8 +48,10 @@ export class BoardComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.websocket3()
     this.websocket()
     this.websocket2()
+    this.BoardOponent()
     const gameId = localStorage.getItem('gameId'); // Obtener el ID del juego del localStorage
     if (gameId) {
       this.gameService.consumirBoard(parseInt(gameId, 10)).subscribe(
@@ -76,6 +80,7 @@ export class BoardComponent implements OnInit{
             showConfirmButton: false,
             timer: 1500
           });
+          this.boardState[x][y] = 'K';
         } else if (response.message === 'Solo hay agua en esta posición.') {
           Swal.fire({
             position: 'center',
@@ -84,6 +89,8 @@ export class BoardComponent implements OnInit{
             showConfirmButton: false,
             timer: 1500
           });
+          console.log(response.message)
+          this.boardStateOponent[x][y] = 'F';
         }
         else if (response.message === '¡Felicidades! Has hundido todos los barcos del oponente. ¡Has ganado!.') {
           Swal.fire({
@@ -115,6 +122,7 @@ export class BoardComponent implements OnInit{
         
       }
       this.reloadBoard();
+      this.reloadBoard2()
       console.log(data);
     });
     console.log(this.echo);
@@ -130,6 +138,15 @@ export class BoardComponent implements OnInit{
       });
       this.router.navigate(['/index']);
       console.log(data);
+    });
+    console.log(this.echo);
+    this.echo.connect();
+  }
+
+  websocket3() {
+    this.echo.channel('turno').listen('turn', (data: any) => {
+      this.turno = data.turno;
+      console.log(this.turno);
     });
     console.log(this.echo);
     this.echo.connect();
@@ -151,4 +168,37 @@ export class BoardComponent implements OnInit{
       console.error('ID del juego no disponible');
     }
   }
+  reloadBoard2() {
+    const gameId = localStorage.getItem('gameId');
+    if (gameId) {
+      this.gameService.consumirBoardOponent(parseInt(gameId, 10)).subscribe(
+        response => {
+          this.boardStateOponent = JSON.parse(response.board.board_state);
+          console.log(response.board.board_state);
+        },
+        error => {
+          console.error('Error al obtener el tablero:', error);
+        }
+      );
+    } else {
+      console.error('ID del juego no disponible');
+    }
+  }
+  BoardOponent(){
+    const gameId = localStorage.getItem('gameId'); // Obtener el ID del juego del localStorage
+    if (gameId) {
+      this.gameService.consumirBoardOponent(parseInt(gameId, 10)).subscribe(
+        response => {
+          this.boardStateOponent = JSON.parse(response.board.board_state);
+          console.log(response.board.board_state);
+        },
+        error => {
+          console.error('Error al obtener el tablero:', error);
+         }
+      );
+    } else {
+      console.error('ID del juego no disponible');
+    }
+  }
+   
 }
