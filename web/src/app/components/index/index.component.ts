@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { GameService } from '../../services/game.service';
 import { Gameplay } from '../../interfaces/gameplay';
+import { LoginService } from '../../services/login.service';
+import { Injectable } from '@angular/core';
 
 @Component({
   selector: 'app-index',
@@ -12,7 +14,7 @@ import { Gameplay } from '../../interfaces/gameplay';
   styleUrl: './index.component.css'
 })
 export class IndexComponent {
-  constructor(private gameService: GameService, private router: Router) { }
+  constructor(private gameService: GameService, private router: Router, public loginService: LoginService) { }
   public partida:Gameplay = {
     message: '',
 	  game_id: {

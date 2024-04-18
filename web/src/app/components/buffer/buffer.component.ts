@@ -28,7 +28,7 @@ export class BufferComponent {
       disableStatus: true,
     });
 
-    this.echo.private('private-Joingame').listen('PlayerJoinedGame', (data) => {
+    this.echo.private('private-Joingame').listen('PlayerJoinedGame', (data: any) => {
       console.log('El jugador ' + data.playerId + ' se ha unido al juego ' + data.gameId);
       this.router.navigate(['/tablero']);
     });

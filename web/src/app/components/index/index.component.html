@@ -1,12 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <style>
+        .logout-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <img src="assets/soldadin.png" alt="Imagen descriptiva">
-    <div class="username">Nombre del usuario</div>
+    
+    <div class="username">Bienvenido!, {{ loginService.currentUser?.email }}</div>
+   
+    <button class="logout-button" (click)="logout()">Logout</button>
+
     <div class="center">
-       
+        <img src="assets/soldadin.png" alt="Imagen descriptiva" style="width: 13;">
         <div class="button-container">
             <button class="button green" (click)="jugar()" >Jugar</button>
             <button class="button blue" routerLink="../historial">Partidas</button>
