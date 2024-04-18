@@ -34,6 +34,7 @@ Route::group([
     'prefix' => 'user'
 ], function ($router) {
     Route::get('me', [AuthController::class, 'me']);
+    Route::get('logout', [AuthController::class, 'logout']);
 });
 
 Route::group([

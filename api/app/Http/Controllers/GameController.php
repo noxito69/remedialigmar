@@ -47,7 +47,7 @@ class GameController extends Controller
             $board->board_state = json_encode($this->generateRandomBoard());
             $board->save();
 
-            return response()->json(['message' => 'Te has unido a una partida pendiente como jugador 2', 'tablero' => $board]);
+            return response()->json(['message' => 'Te has unido a una partida pendiente como jugador 2', 'game_id' => $pendingGame]);
         } else {
             $newGame = new Game();
             $newGame->player1_id = auth()->id();
@@ -60,7 +60,7 @@ class GameController extends Controller
             $board->board_state = json_encode($this->generateRandomBoard());
             $board->save();
 
-            return response()->json(['message' => 'Has creado una nueva partida, espera a que alguien se una', 'tablero' => $board]);
+            return response()->json(['message' => 'Has creado una nueva partida, espera a que alguien se una', 'tablero' => $newGame]);
         }
     }
 
@@ -135,7 +135,7 @@ class GameController extends Controller
             $loser = ($winner == $game->player1_id) ? $game->player2_id : $game->player1_id;
 
             event(new GameFinished($game->id, $winner));
-            
+
             if ($winner == auth()->id()) {
                 $winMessage = '¡Felicidades! Has hundido todos los barcos del oponente. ¡Has ganado!';
                 $loseMessage = '¡El oponente ha hundido todos tus barcos! ¡Has perdido!';
