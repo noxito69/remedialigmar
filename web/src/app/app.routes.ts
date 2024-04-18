@@ -6,6 +6,7 @@ import { BufferComponent } from './components/buffer/buffer.component';
 import { TwoFAComponent } from './components/two-fa/two-fa.component';
 import { BoardComponent } from './components/board/board.component';
 import { authGuard } from './guards/authguard.guard';
+import { HistorialComponent } from './components/historial/historial.component';
 
 export const routes: Routes = [
     {path:'', redirectTo: 'login', pathMatch: 'full'},
@@ -14,6 +15,6 @@ export const routes: Routes = [
     {path:'register',component:RegisterComponent},
     {path:'buffer',component:BufferComponent},
     {path:'T2A',component:TwoFAComponent },
-    {path:'board',component:BoardComponent}
-    
+    {path:'board',component:BoardComponent},
+    {path:'historial',component:HistorialComponent}    
 ];
