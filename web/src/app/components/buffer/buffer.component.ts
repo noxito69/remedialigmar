@@ -31,6 +31,7 @@ export class BufferComponent {
     this.echo.channel('Joingame').listen('PlayerJoinedGame', (data: any) => {
       console.log('El jugador ' + data.playerId + ' se ha unido al juego ' + data.gameId);
       this.router.navigate(['/board']);
+      localStorage.setItem('gameId', data.gameId.toString());
     })
     console.log(this.echo)
     this.echo.connect()

@@ -6,6 +6,8 @@ import { GameService } from '../../services/game.service';
 import { Router } from '@angular/router';
 import { Gameplay } from '../../interfaces/gameplay';
 import { Board } from '../../interfaces/board';
+import { ParseSourceFile } from '@angular/compiler';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -48,7 +50,39 @@ export class BoardComponent implements OnInit{
   letters: string[] = ['A', 'B', 'C', 'D', 'E'];
 
   onButtonClick(x: number, y: number): void {
-    console.log(`Button at coordinate (${x}, ${y}) was clicked.`);
+    const gameId = localStorage.getItem('gameId') || '';
+      this.gameService.consumirMove(parseInt(gameId), x, y).subscribe(
+        (response)=>{
+          if(response.message === '¡Has golpeado un barco!'){
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: response.message,
+              showConfirmButton: false,
+              timer: 1500
+            });
+          }
+          else if(response.message === 'Solo hay agua en esta posición.'){
+            Swal.fire({
+              position: "center",
+              icon: "error",
+              title: response.message,
+              showConfirmButton: false,
+              timer: 1500
+            });
+          }
+          console.log(response)
+        }, (error)=>{
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: error.error,
+            showConfirmButton: false,
+            timer: 1500
+          });
+          console.log(error)
+        }
+      )
   }
 
 }

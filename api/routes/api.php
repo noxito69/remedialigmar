@@ -41,7 +41,7 @@ Route::group([
     'middleware' => ['api', 'activate', 'verificado'],
     'prefix' => 'game'
 ], function ($router) {
-    Route::get('hit/{idgame}', [GameController::class, 'makeMove']);
+    Route::post('hit/{idgame}', [GameController::class, 'makeMove']);
     Route::post('play', [GameController::class, 'createGame']);
     Route::get('show/{game}', [BoardController::class, 'show']);
 

@@ -3,7 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { GameService } from '../../services/game.service';
 import { Gameplay } from '../../interfaces/gameplay';
-import { GameIdService } from '../../services/game-id.service';
+import { LoginService } from '../../services/login.service';
+import { Injectable } from '@angular/core';
 
 @Component({
   selector: 'app-index',
@@ -16,7 +17,6 @@ export class IndexComponent {
   constructor(
     private gameService: GameService,
     private router: Router,
-    private gameIdService: GameIdService
   ) {}
   public partida: Gameplay = {
     message: '',
@@ -32,16 +32,14 @@ export class IndexComponent {
   jugar() {
     this.gameService.consumirplay().subscribe(
       (response) => {
-        if (response.game_id && response.game_id.id) {
+        if (response.game_id && response.game_id.id) { // Verificar si response.game_id está definido y si su propiedad id también está definida
           localStorage.setItem('gameId', response.game_id.id.toString());
         }
   
         if (response.message === 'Has creado una nueva partida, espera a que alguien se una') {
-          localStorage.setItem('gameId', response.game_id.id.toString()); // Mover la actualización del gameId aquí
           this.router.navigate(['/buffer']);
           console.log(response);
         } else if (response.message === 'Te has unido a una partida pendiente como jugador 2' || response.message === 'Ya estás en una partida pendiente') {
-          localStorage.setItem('gameId', response.game_id.id.toString()); // Mover la actualización del gameId aquí
           this.router.navigate(['/board']);
           console.log(response);
         }

@@ -13,8 +13,8 @@ export const routes: Routes = [
     {path:'index', component:IndexComponent, canActivate: [authGuard]},
     {path:'login', component:LoginComponent},
     {path:'register',component:RegisterComponent},
-    {path:'buffer',component:BufferComponent},
-    {path:'T2A',component:TwoFAComponent },
-    {path:'board',component:BoardComponent},
-    {path:'historial',component:HistorialComponent}    
+    {path:'buffer',component:BufferComponent, canActivate: [authGuard]},
+    {path:'T2A',component:TwoFAComponent},
+    {path:'board',component:BoardComponent, canActivate: [authGuard]},
+    {path:'historial',component:HistorialComponent, canActivate: [authGuard]}    
 ];
