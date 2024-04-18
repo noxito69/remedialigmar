@@ -106,9 +106,13 @@ class GameController extends Controller
         if ($this->hitShip($boardState, $x, $y)) {
             $boardState[$x][$y] = 'K';
             $message = '¡Has golpeado un barco!';
+            event(new movimiento($gameId, auth()->id(), $x, $y));
+
         } else {
             $boardState[$x][$y] = 'F';
             $message = 'Solo hay agua en esta posición.';
+            event(new movimiento($gameId, auth()->id(), $x, $y));
+
 
             $game->turn = ($game->turn == $game->player1_id) ? $game->player2_id : $game->player1_id;
             $game->save();
@@ -124,7 +128,7 @@ class GameController extends Controller
         $move->y_coordinate = $y;
         $move->save();
 
-        event(new movimiento(['gameId' => $gameId, 'playerId' => auth()->id(), 'x' => $x, 'y' => $y]));
+        event(new movimiento($gameId, auth()->id(), $x, $y));
 
 
         if ($this->allShipsSunk($boardState)) {
@@ -133,8 +137,6 @@ class GameController extends Controller
 
             $winner = $game->turn;
             $loser = ($winner == $game->player1_id) ? $game->player2_id : $game->player1_id;
-
-            event(new GameFinished($game->id, $winner));
 
             if ($winner == auth()->id()) {
                 $winMessage = '¡Felicidades! Has hundido todos los barcos del oponente. ¡Has ganado!';

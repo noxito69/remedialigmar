@@ -19,10 +19,17 @@ class movimiento implements ShouldBroadcast
      *
      * @return void
      */
-    public $movimiento;
-    public function __construct($movimiento)
+    public $gameId;
+    public $playerId;
+
+    public $x;
+    public $y;
+    public function __construct($gameId, $playerId, $x, $y)
     {
-        $this->movimiento = $movimiento;
+        $this->gameId= $gameId;
+        $this->playerId = $playerId; 
+        $this->x = $x;
+        $this->y = $y;
     }
 
     /**
